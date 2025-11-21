@@ -18,7 +18,6 @@ FetchContent_MakeAvailable(Catch2)
 add_executable(farming_sim main.cpp
         plots/plants/beet.hpp
         plots/plant.cpp
-        plots/plant.hpp
         plots/plants/brussel_sprouts.hpp
         plots/plants/carrot.hpp
         plots/plants/lettuce.hpp
@@ -28,29 +27,18 @@ add_executable(farming_sim main.cpp
         plots/plants/zucchini.hpp
         plots/plot.hpp
         plots/soil.cpp
-        plots/soil.hpp
         interactions/item.hpp
         interactions/inventory.cpp
-        interactions/inventory.hpp
         plots/weeds/weed_classic.cpp
-        plots/weeds/weed_classic.hpp
         interactions/items/seeds.cpp
-        interactions/items/seeds.hpp
         interactions/items/produce.cpp
-        interactions/items/produce.hpp
         interactions/shop.cpp
-        interactions/shop.hpp
         logic/ansi_clear.hpp
         logic/cupid.cpp
-        logic/cupid.hpp
         farm_stuff/farm.cpp
-        farm_stuff/farm.hpp
         farm_stuff/farm_printer.cpp
-        farm_stuff/farm_printer.hpp
         farm_stuff/game_printer.cpp
-        farm_stuff/game_printer.hpp
         farm_stuff/player.cpp
-        farm_stuff/player.hpp
 )
 
 add_executable(plants_tests tests/plot_tests/plants_tests.cpp

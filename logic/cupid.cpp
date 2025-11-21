@@ -239,8 +239,6 @@ void cupid::runGame() {
             if (temp_int == -10) { // it's a weed
                 farm.set_soil();
             }
-
-
         } else if (player_input == "o") {
             // change seed
             seed_change(&game_printer, player_input);
