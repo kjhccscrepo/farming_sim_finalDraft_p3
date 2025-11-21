@@ -19,6 +19,11 @@ Farm::Farm(const int ini_rows, const int ini_columns) {
     dayCounter = 1;
 }
 
+void Farm::toggle_weeds() {
+    if (!makeWeeds) makeWeeds = true;
+    else makeWeeds = false;
+}
+
 void Farm::link_Player(Player *player_ptr) {
     myPlayer = player_ptr;
 }
@@ -78,7 +83,7 @@ void Farm::end_day() {
             }
         }
     }
-    if (xBuffer.size() == yBuffer.size() && !xBuffer.empty() && !yBuffer.empty()) {
+    if (xBuffer.size() == yBuffer.size() && !xBuffer.empty() && !yBuffer.empty() && makeWeeds) {
         const int xMax = row_capacity();
         const int yMax = column_capacity();
 

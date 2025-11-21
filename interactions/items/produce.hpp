@@ -30,7 +30,6 @@ public:
 
     void setCost(int &cost) override;
 
-    //char inventory_position() override;
 };
 
 #endif

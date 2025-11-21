@@ -79,24 +79,69 @@ add_executable(weeds_test tests/plot_tests/weeds_test.cpp
 
 
 #these tests aren't done yet.
-add_executable(farm_test tests/farms_test/farm_test.cpp)
-add_executable(printer_test tests/farms_test/printer_test.cpp)
-add_executable(player_test tests/farms_test/player_test.cpp)
-add_executable(shop_test tests/farms_test/shop_test.cpp)
-add_executable(item_test tests/farms_test/item_test.cpp)
-add_executable(inventory_test tests/farms_test/inventory_test.cpp)
-add_executable(cupid_test tests/farms_test/cupid_test.cpp)
+add_executable(farm_test tests/farms_test/farm_test.cpp
+        farm_stuff/farm.cpp
+        farm_stuff/farm_printer.cpp
+        interactions/inventory.cpp
+        interactions/items/seeds.cpp
+        interactions/items/produce.cpp
+        interactions/inventory.cpp
+        plots/plant.cpp
+        plots/plants/carrot.hpp
+        plots/soil.cpp
+        farm_stuff/player.cpp
+        plots/weeds/weed_classic.cpp
+)
+add_executable(printer_test tests/farms_test/printer_test.cpp
+        farm_stuff/game_printer.cpp
+        farm_stuff/farm_printer.cpp
+        farm_stuff/farm.cpp
+        interactions/inventory.cpp
+        interactions/items/seeds.cpp
+        interactions/items/produce.cpp
+        interactions/inventory.cpp
+        plots/plant.cpp
+        plots/plants/carrot.hpp
+        plots/plants/melon.hpp
+        plots/soil.cpp
+        farm_stuff/player.cpp
+        plots/weeds/weed_classic.cpp
+)
+
+add_executable(inventory_test tests/farms_test/inventory_test.cpp
+        interactions/inventory.cpp
+        plots/plot.hpp
+        plots/soil.cpp
+        interactions/item.hpp
+        plots/plant.cpp
+        interactions/items/produce.cpp
+        interactions/items/seeds.cpp
+        plots/plants/carrot.hpp
+)
+add_executable(item_test tests/farms_test/item_test.cpp
+        interactions/item.hpp
+        interactions/items/produce.cpp
+        interactions/items/seeds.cpp
+        plots/plant.cpp
+        plots/plants/zucchini.hpp
+)
+add_executable(player_test tests/farms_test/player_test.cpp
+        farm_stuff/player.cpp)
+add_executable(shop_test tests/farms_test/shop_test.cpp
+        interactions/shop.cpp
+        interactions/inventory.cpp
+        interactions/item.hpp
+        interactions/items/produce.cpp
+        interactions/items/seeds.cpp
+)
 
 target_link_libraries(farming_sim PRIVATE Catch2::Catch2WithMain)
 target_link_libraries(plants_tests PRIVATE Catch2::Catch2WithMain)
 target_link_libraries(soil_test PRIVATE Catch2::Catch2WithMain)
 target_link_libraries(weeds_test PRIVATE Catch2::Catch2WithMain)
-
 target_link_libraries(farm_test PRIVATE Catch2::Catch2WithMain)
 target_link_libraries(printer_test PRIVATE Catch2::Catch2WithMain)
 target_link_libraries(player_test PRIVATE Catch2::Catch2WithMain)
 target_link_libraries(shop_test PRIVATE Catch2::Catch2WithMain)
 target_link_libraries(item_test PRIVATE Catch2::Catch2WithMain)
-
 target_link_libraries(inventory_test PRIVATE Catch2::Catch2WithMain)
-target_link_libraries(cupid_test PRIVATE Catch2::Catch2WithMain)

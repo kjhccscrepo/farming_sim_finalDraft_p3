@@ -63,11 +63,16 @@ void Shop::link(inventory *player_inventory, const std::string &name) {
 }
 
 void Shop::new_seed(seeds *seed_ptr) {
-    if (const int seedPos = has(seed_ptr); seedPos < 0) {
-        allSeeds.push_back(seed_ptr);
+    if (seed_ptr != nullptr) {
+        if (const int seedPos = has(seed_ptr); seedPos < 0) {
+            allSeeds.push_back(seed_ptr);
+        } else {
+            std::cout << "\nCouldn't add" << seed_ptr->getMyName() << ", is it already in shop?\n";
+        }
     } else {
-        std::cout << "\nCouldn't add" << seed_ptr->getMyName() << ", is it already in shop?\n";
+        std::cout << "\ndidnt push nullpointer to shop!\n";
     }
+
 }
 
 std::string Shop::welcome() const {

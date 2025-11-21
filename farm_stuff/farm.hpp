@@ -14,6 +14,7 @@
 
 class Farm {
 private:
+    bool makeWeeds{true};
     int rows;
     int columns;
     Player *myPlayer;
@@ -23,6 +24,8 @@ private:
     std::vector<int> yBuffer;
 public:
     explicit Farm(int ini_rows, int ini_columns);
+
+    void toggle_weeds();
 
     void link_Player(Player *player_ptr);
 

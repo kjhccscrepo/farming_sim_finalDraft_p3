@@ -46,11 +46,7 @@ int produce::getCost() {
 void produce::setCost(int &cost) {
     mySell = cost;
 }
-/*
-char produce::inventory_position() {
-    return 'b';
-}
-*/
+
 produce::~produce() {
     myPlant = nullptr;
 }

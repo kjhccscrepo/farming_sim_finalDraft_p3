@@ -1,7 +1,3 @@
-//
-// Created by kistj on 11/18/2025.
-//
-
 #ifndef FARMING_SIMULATOR_V2C_SHOP_HPP
 #define FARMING_SIMULATOR_V2C_SHOP_HPP
 

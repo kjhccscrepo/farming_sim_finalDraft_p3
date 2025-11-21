@@ -42,9 +42,6 @@ void seeds::setCost(int &cost) {
     myCost = cost;
 }
 
-//char seeds::inventory_position() {
-//    return 'a';
-//}
 
 seeds::~seeds() {
     myPlant = nullptr;

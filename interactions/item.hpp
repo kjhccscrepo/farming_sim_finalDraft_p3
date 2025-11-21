@@ -30,8 +30,5 @@ public:
     virtual int getCost() = 0;
 
     virtual void setCost(int &cost) = 0;
-
-    //virtual char inventory_position();
-
 };
 #endif //FARMING_SIMULATOR_V2C_ITEM_HPP

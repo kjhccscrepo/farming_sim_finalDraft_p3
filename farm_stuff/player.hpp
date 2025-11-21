@@ -40,7 +40,7 @@ public:
 
     void better_start_position();
 
-    void change_avatar(char n);
+    void change_avatar(const std::string &n);
 };
 
 #endif //FARMING_SIMULATOR_V2C_PLAYER_HPP

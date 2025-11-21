@@ -30,6 +30,5 @@ public:
 
     void setCost(int &cost) override;
 
-    //char inventory_position() override;
 };
 #endif //FARMING_SIMULATOR_V2C_SEEDS_HPP

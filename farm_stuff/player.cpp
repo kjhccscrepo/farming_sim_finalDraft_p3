@@ -8,7 +8,7 @@
 #include <stdexcept>
 
 Player::Player(const std::string &pAvatar) {
-    myAvatar = pAvatar;
+    myAvatar = pAvatar[0];
     current_x = 0;
     current_y = 0;
     maxX = 0;
@@ -80,6 +80,6 @@ void Player::better_start_position() {
     this->current_x = (maxX / 2);
 }
 
-void Player::change_avatar(char n) {
-    myAvatar = std::to_string(n);
+void Player::change_avatar(const std::string &n) {
+    myAvatar = n[0];
 }
