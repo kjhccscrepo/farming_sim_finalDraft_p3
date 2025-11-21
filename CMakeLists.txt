@@ -71,11 +71,6 @@ add_executable(soil_test tests/plot_tests/soil_test.cpp
         interactions/item.hpp
 )
 
-add_executable(weeds_test tests/plot_tests/weeds_test.cpp
-        plots/weeds/weed_classic.cpp
-        plots/plot.hpp
-        interactions/item.hpp
-)
 
 
 #these tests aren't done yet.
@@ -138,7 +133,6 @@ add_executable(shop_test tests/farms_test/shop_test.cpp
 target_link_libraries(farming_sim PRIVATE Catch2::Catch2WithMain)
 target_link_libraries(plants_tests PRIVATE Catch2::Catch2WithMain)
 target_link_libraries(soil_test PRIVATE Catch2::Catch2WithMain)
-target_link_libraries(weeds_test PRIVATE Catch2::Catch2WithMain)
 target_link_libraries(farm_test PRIVATE Catch2::Catch2WithMain)
 target_link_libraries(printer_test PRIVATE Catch2::Catch2WithMain)
 target_link_libraries(player_test PRIVATE Catch2::Catch2WithMain)
