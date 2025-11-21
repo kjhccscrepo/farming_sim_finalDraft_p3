@@ -71,9 +71,6 @@ add_executable(soil_test tests/plot_tests/soil_test.cpp
         interactions/item.hpp
 )
 
-
-
-#these tests aren't done yet.
 add_executable(farm_test tests/farms_test/farm_test.cpp
         farm_stuff/farm.cpp
         farm_stuff/farm_printer.cpp
