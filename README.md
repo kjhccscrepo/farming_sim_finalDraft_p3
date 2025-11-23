@@ -20,3 +20,6 @@ This is a project for csc122 at Harper College.
   - *and sell your crops for money to buy things*
 - You can exit most sub menus by with "r"
 - You can exit the game by pressing "q"
+
+Run the farming_sim.exe to run the program.
+Matured plants are always capital letters, any non-capital letter is not yet matured
