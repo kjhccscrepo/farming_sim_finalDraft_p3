@@ -126,6 +126,7 @@ void cupid::tick_day() {
     farm.end_day();
     this->weed_generate();
     playerInventory.reset_water();
+    unlock_seeds();
 }
 
 void cupid::water() {

@@ -15,7 +15,7 @@ inventory::inventory() {
 
 
 void inventory::sort_me() {
-    if (is_first_item_plantable()) {
+    if (myInventory[0]->isSeed()) {
         std::ranges::sort(myInventory.begin() + 1, myInventory.end());
     } else {
         std::ranges::sort(myInventory.begin(), myInventory.end());

@@ -80,10 +80,14 @@ std::string Shop::welcome() const {
 }
 
 std::string Shop::menu_options() {
-    std::string menu = "\n1) Buy new Seeds"
+    std::string menu = "\n1) Buy new Things"
             "\n2) Sell Produce/Seeds"
             "\n3) Return to Farm";
     return menu;
+}
+
+std::string Shop::print_Player_money() const {
+    return "(You have, " + inventory_ptr->printMoney() + ")\n";
 }
 
 std::string Shop::buy_options() const {
@@ -124,7 +128,7 @@ void Shop::gotoShop() {
     std::cin.ignore();
     std::string userInput;
     ansi_clear();
-    std::cout << welcome() << std::endl;
+    std::cout << print_Player_money() << welcome() << std::endl;
     while (atShop) {
         while (true) {
             std::cout << menu_options() << std::endl;
@@ -142,7 +146,7 @@ void Shop::gotoShop() {
             int choice = -1;
             bool purchase_seed = false;
             while (true) {
-                std::cout << buy_options() << std::endl;
+                std::cout << print_Player_money() << buy_options() << std::endl;
                 std::cout << "r) exit\n";
                 std::getline(std::cin, userInput);
                 if (!userInput.empty()) {
@@ -171,7 +175,7 @@ void Shop::gotoShop() {
             }
             while (purchase_seed) {
                 std::cout << "How many " + allSeeds[choice]->getMyName() + " do you want to buy?\n";
-                std::cout << "(You have, " + inventory_ptr->printMoney() + ")";
+                std::cout << print_Player_money();
                 std::cout << "\nAmount:\t ";
                 std::getline(std::cin, userInput);
                 if (!userInput.empty()) {

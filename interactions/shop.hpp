@@ -30,6 +30,8 @@ public:
 
     static std::string menu_options();
 
+    [[nodiscard]] std::string print_Player_money() const;
+
     [[nodiscard]] std::string buy_options() const;
 
     [[nodiscard]] std::string sell_options() const;

@@ -123,7 +123,9 @@ void Farm::set_soil() {
 }
 
 void Farm::water_plot() const {
-    plots[myPlayer->getX()][myPlayer->getY()]->water();
+    if (plots[myPlayer->getX()][myPlayer->getY()]->harvest() == -3) {
+        plots[myPlayer->getX()][myPlayer->getY()]->water();
+    }
 }
 
 Plot *Farm::current_plot() const {
