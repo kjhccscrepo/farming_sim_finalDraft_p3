@@ -5,11 +5,12 @@
 
 #include "../farm_stuff/farm.hpp"
 #include "../farm_stuff/game_printer.hpp"
-#include "../farm_stuff/player.hpp"
+#include "../entities/player.hpp"
 #include "../interactions/inventory.hpp"
 #include "../interactions/shop.hpp"
 #include "../plots/soil.hpp"
 #include "../interactions/items/seeds.hpp"
+#include "../random/frandom.hpp"
 
 class cupid {
 private:
@@ -21,6 +22,7 @@ private:
     std::vector<seeds*> seed_unlockables;
     bool seeds_unlocked[3] = {false};
     bool in_menus = false;
+    frandom *CupidRandom;
 
     void unlock_seeds();
 
@@ -40,6 +42,8 @@ private:
 
 public:
     cupid();
+
+    void setRandom(frandom *Crandom);
 
     void runGame();
 };

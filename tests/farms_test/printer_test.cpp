@@ -14,7 +14,7 @@
 #include "../../plots/plants/carrot.hpp"
 #include "../../plots/plants/melon.hpp"
 #include "../../plots/soil.hpp"
-#include "../../farm_stuff/player.hpp"
+#include "../../entities/player.hpp"
 #include "../../plots/weeds/weed_classic.hpp"
 
 

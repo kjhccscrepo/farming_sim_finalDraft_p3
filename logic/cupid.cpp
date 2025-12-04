@@ -95,7 +95,7 @@ void cupid::legend_peek(GamePrinter *printer, std::string &input) {
 }
 
 void cupid::weed_generate() {
-    const int r = (rand() % 99) + 1;
+    const int r = CupidRandom->get_random_number_in_range(1, 100);
     int w = 0;
     if (r == 100) {
         w++;
@@ -113,8 +113,8 @@ void cupid::weed_generate() {
         w++;
     }
     while (w != 0) {
-        const int x = rand() % (farm.row_capacity() - 1);
-        const int y = rand() % (farm.column_capacity() - 1);
+        const int x = CupidRandom->get_random_number_in_range(1, farm.row_capacity() - 1);
+        const int y = CupidRandom->get_random_number_in_range(1, farm.column_capacity() - 1);
         auto *weed_ptr = new weed_classic();
         farm.plant(x, y, weed_ptr);
         w--;
@@ -136,12 +136,16 @@ void cupid::water() {
 }
 
 cupid::cupid() : farm(19, 9) {
+    CupidRandom = nullptr;
+}
+
+void cupid::setRandom(frandom *Crandom) {
+    CupidRandom = Crandom;
 }
 
 void cupid::runGame() {
     //plants
-
-
+    farm.set_Random(CupidRandom);
     Carrot carrot;
     Melon melon;
     Onion onion;
@@ -203,7 +207,6 @@ void cupid::runGame() {
     GamePrinter game_printer(&farm_printer, &playerInventory);
     bool game_in_progress = true;
     std::string player_input;
-    srand(time(nullptr));
     while (game_in_progress) {
         ansi_clear();
         std::cout << game_printer.prettyPrint_Game() << std::endl;
@@ -214,16 +217,16 @@ void cupid::runGame() {
             std::cout << "\nThank you for playing!\n";
         } else if (player_input == "w") {
             // move up
-            player.move_up();
+            farm.move_player_up();
         } else if (player_input == "a") {
             // move left
-            player.move_left();
+            farm.move_player_left();
         } else if (player_input == "d") {
             // move right
-            player.move_right();
+            farm.move_player_right();
         } else if (player_input == "s") {
             // move down
-            player.move_down();
+            farm.move_player_down();
         } else if (player_input == "p") {
             // plant
             if (farm.harvest_val() == -1) { // it is soil and can be planted!

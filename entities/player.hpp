@@ -4,10 +4,10 @@
 
 #ifndef FARMING_SIMULATOR_V2C_PLAYER_HPP
 #define FARMING_SIMULATOR_V2C_PLAYER_HPP
-
+#include "entity.hpp"
 #include <string>
 
-class Player {
+class Player : public entity {
 private:
     int current_x;
     int current_y;
@@ -20,21 +20,21 @@ public:
 
     Player();
 
-    [[nodiscard]] int getX() const;
+    int getX() const override;
 
-    [[nodiscard]] int getY() const;
+    int getY() const override;
 
-    void move_up();
+    void move_up() override;
 
-    void move_down();
+    void move_down() override;
 
-    void move_right();
+    void move_right() override;
 
-    void move_left();
+    void move_left() override;
 
-    void set_bounds(int xBound, int yBound);
+    void set_bounds(int xBound, int yBound) override;
 
-    std::string getAvatar();
+    std::string getAvatar() override;
 
     void setUpCheck() const;
 

@@ -7,13 +7,17 @@
 
 #include <string>
 #include <vector>
-#include "player.hpp"
+#include "../entities/player.hpp"
 #include "../plots/plot.hpp"
 #include "../plots/soil.hpp"
 #include "../plots/weeds/weed_classic.hpp"
+#include "../entities/bunny.hpp"
+#include "../random/frandom.hpp"
 
 class Farm {
 private:
+    frandom *myRandom;
+
     bool makeWeeds{true};
     int rows;
     int columns;
@@ -22,8 +26,24 @@ private:
     std::vector<std::vector<Plot*>> plots;
     std::vector<int> xBuffer;
     std::vector<int> yBuffer;
+
+    std::vector<bunny*> bunnies;
+    bool hardmode;
+
+    int max_bunnies() const;
+
+    bool roll_make_bunnies() const;
+
+    int weedSpreadChance() const;
+
+    bool isCrowded(const int &x, const int &y) const;
+
 public:
     explicit Farm(int ini_rows, int ini_columns);
+
+    void set_hardmode();
+
+    void set_Random(frandom *frandom_ptr);
 
     void toggle_weeds();
 
@@ -50,5 +70,17 @@ public:
     void water_plot() const;
 
     [[nodiscard]] Plot *current_plot() const;
+
+    // new collision code
+    void move_player_up() const;
+    void move_player_down() const;
+    void move_player_right() const;
+    void move_player_left() const;
+
+
+    // bunny code
+    void bunnie_spawn();
+
+
 };
 #endif //FARMING_SIMULATOR_V2C_FARM_HPP

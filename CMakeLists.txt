@@ -16,6 +16,9 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(Catch2)
 
 add_executable(farming_sim main.cpp
+        random/frandom.hpp
+        random/real_random.cpp
+        entities/entity.hpp
         plots/plants/beet.hpp
         plots/plant.cpp
         plots/plants/brussel_sprouts.hpp
@@ -38,7 +41,7 @@ add_executable(farming_sim main.cpp
         farm_stuff/farm.cpp
         farm_stuff/farm_printer.cpp
         farm_stuff/game_printer.cpp
-        farm_stuff/player.cpp
+        entities/player.cpp
 )
 
 add_executable(plants_tests tests/plot_tests/plants_tests.cpp
@@ -69,8 +72,10 @@ add_executable(farm_test tests/farms_test/farm_test.cpp
         plots/plant.cpp
         plots/plants/carrot.hpp
         plots/soil.cpp
-        farm_stuff/player.cpp
+        entities/player.cpp
+        entities/bunny.cpp
         plots/weeds/weed_classic.cpp
+        random/test_random.cpp
 )
 add_executable(printer_test tests/farms_test/printer_test.cpp
         farm_stuff/game_printer.cpp
@@ -84,7 +89,7 @@ add_executable(printer_test tests/farms_test/printer_test.cpp
         plots/plants/carrot.hpp
         plots/plants/melon.hpp
         plots/soil.cpp
-        farm_stuff/player.cpp
+        entities/player.cpp
         plots/weeds/weed_classic.cpp
 )
 
@@ -106,7 +111,7 @@ add_executable(item_test tests/farms_test/item_test.cpp
         plots/plants/zucchini.hpp
 )
 add_executable(player_test tests/farms_test/player_test.cpp
-        farm_stuff/player.cpp)
+        entities/player.cpp)
 add_executable(shop_test tests/farms_test/shop_test.cpp
         interactions/shop.cpp
         interactions/inventory.cpp
