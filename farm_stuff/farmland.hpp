@@ -2,22 +2,23 @@
 // Created by kistj on 11/18/2025.
 //
 
-#ifndef FARMING_SIMULATOR_V2C_FARM_HPP
-#define FARMING_SIMULATOR_V2C_FARM_HPP
+#ifndef FARMING_SIMULATOR_V2C_FARMLAND_HPP
+#define FARMING_SIMULATOR_V2C_FARMLAND_HPP
 
 #include <string>
 #include <vector>
+#include "../entities/entity.hpp"
 #include "../entities/player.hpp"
 #include "../plots/plot.hpp"
 #include "../plots/soil.hpp"
 #include "../plots/weeds/weed_classic.hpp"
 #include "../entities/bunny.hpp"
-#include "../random/frandom.hpp"
+#include "../random/my_custom_random.hpp"
 
-class Farm {
+class Farmland {
 private:
-    frandom *myRandom;
-
+    my_custom_random *myRandom;
+    bool *hard_mode;
     bool makeWeeds{true};
     int rows;
     int columns;
@@ -26,28 +27,15 @@ private:
     std::vector<std::vector<Plot*>> plots;
     std::vector<int> xBuffer;
     std::vector<int> yBuffer;
-
-    std::vector<bunny*> bunnies;
-    bool hardmode;
-
-    int max_bunnies() const;
-
-    bool roll_make_bunnies() const;
-
-    int weedSpreadChance() const;
-
-    bool isCrowded(const int &x, const int &y) const;
+    [[nodiscard]] int weedSpreadChance() const;
+    [[nodiscard]] int isCrowded(const int &x, const int &y) const;
 
 public:
-    explicit Farm(int ini_rows, int ini_columns);
+    std::vector<bunny*> myBunniesPtr;
 
-    void set_hardmode();
+    explicit Farmland(int ini_rows, int ini_columns, Player *player_ptr, my_custom_random *random_ptr, bool *hmBool);
 
-    void set_Random(frandom *frandom_ptr);
-
-    void toggle_weeds();
-
-    void link_Player(Player *player_ptr);
+    void toggle_weed_spead();
 
     [[nodiscard]] int harvest_val() const;
 
@@ -77,10 +65,12 @@ public:
     void move_player_right() const;
     void move_player_left() const;
 
-
     // bunny code
-    void bunnie_spawn();
+    char bunny_player_check(const bunny *b_ptr) const;
 
+    void bunny_eat(const bunny *b_ptr);
+
+    void find_valid_bunny_spawn(int &x, int &y);
 
 };
-#endif //FARMING_SIMULATOR_V2C_FARM_HPP
+#endif

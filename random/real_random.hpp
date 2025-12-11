@@ -1,8 +1,8 @@
 #ifndef FARMING_SIM_REAL_RANDOM_HPP
 #define FARMING_SIM_REAL_RANDOM_HPP
-#include "frandom.hpp"
+#include "my_custom_random.hpp"
 #include <random>
-class real_random : public frandom {
+class real_random final : public my_custom_random {
 public:
     explicit real_random();
     int get_random_number() override;

@@ -1,29 +1,27 @@
 //
 // Created by kistj on 12/3/2025.
 //
-#ifndef FARMING_SIM_ENTITY_HPP
-#define FARMING_SIM_ENTITY_HPP
+#ifndef ENTITY_HPP
+#define ENTITY_HPP
 #include <string>
-
 class entity {
 public:
-    virtual ~entity() = default;
+    virtual ~entity();
 
-    virtual int getX() const;
+    [[nodiscard]] virtual int getX() const = 0;
 
-    virtual int getY() const;
+    [[nodiscard]] virtual int getY() const = 0;
 
-    virtual void move_up();
+    virtual void move_up() = 0;
 
-    virtual void move_down();
+    virtual void move_down() = 0;
 
-    virtual void move_right();
+    virtual void move_right() = 0;
 
-    virtual void move_left();
+    virtual void move_left() = 0;
 
-    virtual void set_bounds(int xBound, int yBound);
+    virtual void set_bounds(int xBound, int yBound) = 0;
 
-    virtual std::string getAvatar();
-
+    virtual std::string getAvatar() = 0;
 };
 #endif

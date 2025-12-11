@@ -23,11 +23,11 @@ int Shop::has(seeds *seed_ptr) {
 }
 
 int Shop::waterCan() const {
-    if (broughtWUPS[0]) {
-        if (broughtWUPS[1]) {
-            if (broughtWUPS[2]) {
-                if (broughtWUPS[3]) {
-                    if (broughtWUPS[4]) {
+    if (brought_WaterCanUpgrades[0]) {
+        if (brought_WaterCanUpgrades[1]) {
+            if (brought_WaterCanUpgrades[2]) {
+                if (brought_WaterCanUpgrades[3]) {
+                    if (brought_WaterCanUpgrades[4]) {
                         return 0;
                     }
                     return waterCanUpgradePrices[4];
@@ -45,8 +45,8 @@ void Shop::waterCanUpgrade_purchase() {
     inventory_ptr->loseMoney(waterCan());
     inventory_ptr->upgrade_water();
     for (int i = 0; i < 5; i++) {
-        if (!broughtWUPS[i]) {
-            broughtWUPS[i] = true;
+        if (!brought_WaterCanUpgrades[i]) {
+            brought_WaterCanUpgrades[i] = true;
             break;
         }
     }

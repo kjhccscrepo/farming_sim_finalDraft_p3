@@ -1,28 +1,32 @@
-#ifndef FARMING_SIMULATOR_V2C_CUPID_HPP
-#define FARMING_SIMULATOR_V2C_CUPID_HPP
+#ifndef FARM_GAME_HPP
+#define FARM_GAME_HPP
 // this class handles setup for the game,
 // and it pairs the classes.
 
-#include "../farm_stuff/farm.hpp"
+#include "../farm_stuff/farmland.hpp"
 #include "../farm_stuff/game_printer.hpp"
+#include "../entities/entity.hpp"
 #include "../entities/player.hpp"
 #include "../interactions/inventory.hpp"
 #include "../interactions/shop.hpp"
 #include "../plots/soil.hpp"
 #include "../interactions/items/seeds.hpp"
-#include "../random/frandom.hpp"
+#include "../random/my_custom_random.hpp"
+#include "entity_brain.hpp"
 
-class cupid {
+class farm_game {
 private:
+    bool hard_mode;
+    my_custom_random *game_random;
+    Player player;
+    Farmland farm;
+    Entity_Brain B_Brain;
     inventory playerInventory;
     Soil soil;
-    Player player;
-    Farm farm;
     Shop shop;
     std::vector<seeds*> seed_unlockables;
     bool seeds_unlocked[3] = {false};
     bool in_menus = false;
-    frandom *CupidRandom;
 
     void unlock_seeds();
 
@@ -40,13 +44,14 @@ private:
 
     void water();
 
-public:
-    cupid();
+    void change_toHardMode();
 
-    void setRandom(frandom *Crandom);
+    bool hard_mode_check() const;
+
+public:
+
+    explicit farm_game(const int &how_long, const int &how_tall, my_custom_random *random_ptr);
 
     void runGame();
 };
-
-
-#endif //FARMING_SIMULATOR_V2C_CUPID_HPP
+#endif

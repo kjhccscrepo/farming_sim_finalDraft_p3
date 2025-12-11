@@ -1,7 +1,8 @@
 
-#include "cupid.hpp"
+#include "farm_game.hpp"
 #include "ansi_clear.hpp"
 #include "../interactions/items/produce.hpp"
+#include "../entities/entity.hpp"
 #include "../plots/plant.hpp"
 #include "../plots/plants/beet.hpp"
 #include "../plots/plants/brussel_sprouts.hpp"
@@ -12,8 +13,9 @@
 #include "../plots/plants/spinach.hpp"
 #include "../plots/plants/zucchini.hpp"
 #include "../plots/weeds/weed_classic.hpp"
+#include "entity_brain.hpp"
 
-void cupid::unlock_seeds() {
+void farm_game::unlock_seeds() {
     if (!seeds_unlocked[0]) {
         if (farm.getDays() > 3) {
             seeds_unlocked[0] = true;
@@ -32,7 +34,7 @@ void cupid::unlock_seeds() {
     }
 }
 
-void cupid::try_plant() {
+void farm_game::try_plant() {
     if (playerInventory.is_first_item_plantable()) {
         // a seed has been selected and verified!
         auto *new_plant = new plant(playerInventory.pointer_to_plant());
@@ -41,7 +43,7 @@ void cupid::try_plant() {
     }
 }
 
-void cupid::seed_change(GamePrinter *printer, std::string &input) {
+void farm_game::seed_change(GamePrinter *printer, std::string &input) {
     playerInventory.sort_me();
     in_menus = true;
     printer->generate_inventory();
@@ -67,7 +69,7 @@ void cupid::seed_change(GamePrinter *printer, std::string &input) {
     }
 }
 
-void cupid::inventory_peek(GamePrinter *printer, std::string &input) {
+void farm_game::inventory_peek(GamePrinter *printer, std::string &input) {
     playerInventory.sort_me();
     in_menus = true;
     printer->generate_inventory();
@@ -81,7 +83,7 @@ void cupid::inventory_peek(GamePrinter *printer, std::string &input) {
     }
 }
 
-void cupid::legend_peek(GamePrinter *printer, std::string &input) {
+void farm_game::legend_peek(GamePrinter *printer, std::string &input) {
     in_menus = true;
     printer->generate_legend();
     while (in_menus) {
@@ -94,58 +96,82 @@ void cupid::legend_peek(GamePrinter *printer, std::string &input) {
     }
 }
 
-void cupid::weed_generate() {
-    const int r = CupidRandom->get_random_number_in_range(1, 100);
-    int w = 0;
-    if (r == 100) {
-        w++;
+void farm_game::weed_generate() {
+    int weeds = 0;
+    int r = 0;
+    if (hard_mode == true) {
+        r = game_random->get_random_number_in_range(1, 100);
+        if (r == 100) {
+            weeds++;
+        }
+        if (r >= 75) {
+            weeds++;
+        }
+        if (r >= 55) {
+            weeds++;
+        }
+        if (r >= 40) {
+            weeds++;
+        }
+        if (r >= 25) {
+            weeds++;
+        }
+    } else {
+        r = game_random->get_random_number_in_range(-1, 3);
+        if (r == -1) {
+            r++;
+        }
+        weeds = r;
     }
-    if (r >= 75) {
-        w++;
-    }
-    if (r >= 55) {
-        w++;
-    }
-    if (r >= 40) {
-        w++;
-    }
-    if (r >= 25) {
-        w++;
-    }
-    while (w != 0) {
-        const int x = CupidRandom->get_random_number_in_range(1, farm.row_capacity() - 1);
-        const int y = CupidRandom->get_random_number_in_range(1, farm.column_capacity() - 1);
+    while (weeds != 0) {
+        const int x = game_random->get_random_number_in_range(0, farm.row_capacity() - 1);
+        const int y = game_random->get_random_number_in_range(0, farm.column_capacity() - 1);
         auto *weed_ptr = new weed_classic();
         farm.plant(x, y, weed_ptr);
-        w--;
+        weeds--;
     }
 }
 
 
-void cupid::tick_day() {
+void farm_game::tick_day() {
     farm.end_day();
+    if (hard_mode_check()) change_toHardMode();
     this->weed_generate();
+    B_Brain.tick_brain();
     playerInventory.reset_water();
     unlock_seeds();
+    B_Brain.all_bun_eat();
 }
 
-void cupid::water() {
+void farm_game::water() {
     if (playerInventory.try_water()) {
         farm.water_plot();
     }
 }
 
-cupid::cupid() : farm(19, 9) {
-    CupidRandom = nullptr;
+void farm_game::change_toHardMode() {
+        hard_mode = true;
 }
 
-void cupid::setRandom(frandom *Crandom) {
-    CupidRandom = Crandom;
+bool farm_game::hard_mode_check() const {
+    if (farm.getDays() > 10) {
+        if (!hard_mode) {
+            return true;
+        }
+    }
+    return false;
 }
 
-void cupid::runGame() {
+farm_game::farm_game(const int &how_long, const int &how_tall, my_custom_random *random_ptr) :
+    game_random(random_ptr),
+    farm(how_long, how_tall, &player, random_ptr, &hard_mode),
+    B_Brain(&player, &farm, random_ptr, &hard_mode) {
+    hard_mode = false;
+}
+
+
+void farm_game::runGame() {
     //plants
-    farm.set_Random(CupidRandom);
     Carrot carrot;
     Melon melon;
     Onion onion;
@@ -187,22 +213,17 @@ void cupid::runGame() {
     spinach.link_this_class(&seeds_Spinach, &produce_spinach);
     //shop setup
     shop.link(&playerInventory, "Farmer");
-
     shop.new_seed(&seeds_Carrot);
     shop.new_seed(&seeds_Beet);
     shop.new_seed(&seeds_Lettuce);
     shop.new_seed(&seeds_Spinach);
     shop.new_seed(&seeds_Brussels);
-
     //initial inventory setup
     playerInventory.add_item_X_times(&seeds_Carrot, 2);
     playerInventory.add_item_X_times(&seeds_Beet, 4);
     playerInventory.add_item_X_times(&seeds_Lettuce, 1);
     playerInventory.add_item_X_times(&seeds_Spinach, 3);
     playerInventory.add_item_X_times(&seeds_Brussels, 7);
-    farm.link_Player(&player);
-    player.set_bounds(farm.row_capacity(), farm.column_capacity());
-    player.better_start_position();
     FarmPrinter farm_printer(&farm);
     GamePrinter game_printer(&farm_printer, &playerInventory);
     bool game_in_progress = true;

@@ -1,5 +1,5 @@
-#ifndef FARMING_SIMULATOR_V2C_PLOT_HPP
-#define FARMING_SIMULATOR_V2C_PLOT_HPP
+#ifndef PLOT_HPP
+#define PLOT_HPP
 #include <string>
 class item;
 
@@ -25,4 +25,4 @@ public:
 
     virtual int produceDrops() = 0;
 };
-#endif //FARMING_SIMULATOR_V2C_PLOT_HPP
+#endif

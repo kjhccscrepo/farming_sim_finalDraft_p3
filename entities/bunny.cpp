@@ -4,11 +4,27 @@
 
 #include "bunny.hpp"
 
-bunny::bunny(int bounds_arr[2], const int cords[2]) {
+bunny::bunny(const int xB, const int yB, const int xCord, const int yCord) {
     bunny_avatar = "+";
-    bunny_x = cords[0];
-    bunny_y = cords[1];
-    bunny::set_bounds(bounds_arr[0], bounds_arr[1]);
+    bunny_x = xCord;
+    bunny_y = yCord;
+    bunny_bound_x = xB;
+    bunny_bound_y = yB;
+}
+
+void bunny::tick() {
+    age++;
+}
+
+int bunny::getAge() const {
+    return age;
+}
+
+bool bunny::is_out_of_bounds() const {
+    if (bunny_x == -1 || bunny_y == -1 || bunny_x == bunny_bound_x || bunny_y == bunny_bound_y) {
+        return true;
+    }
+    return false;
 }
 
 int bunny::getX() const {
@@ -20,7 +36,7 @@ int bunny::getY() const {
 }
 
 void bunny::move_up() {
-    if (bunny_y != 0) {
+    if (bunny_y != -1) {
         bunny_y -= 1;
     }
 }
@@ -38,13 +54,13 @@ void bunny::move_right() {
 }
 
 void bunny::move_left() {
-    if (bunny_x != 0) {
+    if (bunny_x != -1) {
         bunny_x -= 1;
     }
 }
-void bunny::set_bounds(int xBound, int yBound) {
-    this->bunny_bound_x = xBound - 1;
-    this->bunny_y = yBound - 1;
+void bunny::set_bounds(const int xBound, const int yBound) {
+    this->bunny_bound_x = xBound;
+    this->bunny_y = yBound;
 }
 
 std::string bunny::getAvatar() {

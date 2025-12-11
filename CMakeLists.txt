@@ -16,9 +16,6 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(Catch2)
 
 add_executable(farming_sim main.cpp
-        random/frandom.hpp
-        random/real_random.cpp
-        entities/entity.hpp
         plots/plants/beet.hpp
         plots/plant.cpp
         plots/plants/brussel_sprouts.hpp
@@ -37,12 +34,20 @@ add_executable(farming_sim main.cpp
         interactions/items/produce.cpp
         interactions/shop.cpp
         logic/ansi_clear.hpp
-        logic/cupid.cpp
-        farm_stuff/farm.cpp
+        logic/farm_game.cpp
+        farm_stuff/farmland.cpp
         farm_stuff/farm_printer.cpp
         farm_stuff/game_printer.cpp
+        entities/entity.cpp
+        random/my_custom_random.cpp
         entities/player.cpp
+        entities/bunny.cpp
+        random/real_random.cpp
+        logic/entity_brain.cpp
 )
+
+
+
 
 add_executable(plants_tests tests/plot_tests/plants_tests.cpp
         plots/plant.cpp
@@ -62,8 +67,13 @@ add_executable(soil_test tests/plot_tests/soil_test.cpp
         interactions/item.hpp
 )
 
-add_executable(farm_test tests/farms_test/farm_test.cpp
-        farm_stuff/farm.cpp
+add_executable(farmland_test tests/farms_test/farmland_test.cpp
+        random/my_custom_random.cpp
+        random/test_random.cpp
+        entities/entity.cpp
+        entities/player.cpp
+        entities/bunny.cpp
+        farm_stuff/farmland.cpp
         farm_stuff/farm_printer.cpp
         interactions/inventory.cpp
         interactions/items/seeds.cpp
@@ -72,15 +82,17 @@ add_executable(farm_test tests/farms_test/farm_test.cpp
         plots/plant.cpp
         plots/plants/carrot.hpp
         plots/soil.cpp
-        entities/player.cpp
-        entities/bunny.cpp
         plots/weeds/weed_classic.cpp
-        random/test_random.cpp
 )
 add_executable(printer_test tests/farms_test/printer_test.cpp
+        random/my_custom_random.cpp
+        random/test_random.cpp
+        entities/entity.cpp
+        entities/player.cpp
+        entities/bunny.cpp
         farm_stuff/game_printer.cpp
         farm_stuff/farm_printer.cpp
-        farm_stuff/farm.cpp
+        farm_stuff/farmland.cpp
         interactions/inventory.cpp
         interactions/items/seeds.cpp
         interactions/items/produce.cpp
@@ -89,7 +101,6 @@ add_executable(printer_test tests/farms_test/printer_test.cpp
         plots/plants/carrot.hpp
         plots/plants/melon.hpp
         plots/soil.cpp
-        entities/player.cpp
         plots/weeds/weed_classic.cpp
 )
 
@@ -110,8 +121,12 @@ add_executable(item_test tests/farms_test/item_test.cpp
         plots/plant.cpp
         plots/plants/zucchini.hpp
 )
-add_executable(player_test tests/farms_test/player_test.cpp
+add_executable(player_test tests/player_test.cpp
+        entities/entity.cpp
         entities/player.cpp)
+add_executable(bunny_test tests/bunny_test.cpp
+        entities/entity.cpp
+        entities/bunny.cpp)
 add_executable(shop_test tests/farms_test/shop_test.cpp
         interactions/shop.cpp
         interactions/inventory.cpp
@@ -120,12 +135,40 @@ add_executable(shop_test tests/farms_test/shop_test.cpp
         interactions/items/seeds.cpp
 )
 
+add_executable(random_test tests/random_test.cpp
+        random/my_custom_random.cpp
+        random/real_random.cpp
+        random/test_random.cpp
+)
+
+add_executable(entity_brain_test tests/entity_brain_test.cpp
+        logic/entity_brain.cpp
+        entities/entity.cpp
+        entities/player.cpp
+        entities/bunny.cpp
+        random/my_custom_random.cpp
+        random/test_random.cpp
+        farm_stuff/farmland.cpp
+        farm_stuff/farm_printer.cpp
+        interactions/inventory.cpp
+        interactions/items/seeds.cpp
+        interactions/items/produce.cpp
+        interactions/inventory.cpp
+        plots/plant.cpp
+        plots/plants/carrot.hpp
+        plots/soil.cpp
+        plots/weeds/weed_classic.cpp
+)
+
 target_link_libraries(farming_sim PRIVATE Catch2::Catch2WithMain)
 target_link_libraries(plants_tests PRIVATE Catch2::Catch2WithMain)
 target_link_libraries(soil_test PRIVATE Catch2::Catch2WithMain)
-target_link_libraries(farm_test PRIVATE Catch2::Catch2WithMain)
+target_link_libraries(farmland_test PRIVATE Catch2::Catch2WithMain)
 target_link_libraries(printer_test PRIVATE Catch2::Catch2WithMain)
 target_link_libraries(player_test PRIVATE Catch2::Catch2WithMain)
+target_link_libraries(bunny_test PRIVATE Catch2::Catch2WithMain)
 target_link_libraries(shop_test PRIVATE Catch2::Catch2WithMain)
 target_link_libraries(item_test PRIVATE Catch2::Catch2WithMain)
 target_link_libraries(inventory_test PRIVATE Catch2::Catch2WithMain)
+target_link_libraries(random_test PRIVATE Catch2::Catch2WithMain)
+target_link_libraries(entity_brain_test PRIVATE Catch2::Catch2WithMain)

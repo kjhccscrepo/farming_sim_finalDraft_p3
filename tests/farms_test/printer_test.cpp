@@ -4,24 +4,22 @@
 #include <catch2/generators/catch_generators_range.hpp>
 #include "../../farm_stuff/farm_printer.hpp"
 #include "../../farm_stuff/game_printer.hpp"
-
-#include "../../farm_stuff/farm_printer.hpp"
 #include "../../interactions/inventory.hpp"
 #include "../../interactions/items/seeds.hpp"
 #include "../../interactions/items/produce.hpp"
-#include "../../interactions/inventory.hpp"
 #include "../../plots/plant.hpp"
 #include "../../plots/plants/carrot.hpp"
 #include "../../plots/plants/melon.hpp"
 #include "../../plots/soil.hpp"
 #include "../../entities/player.hpp"
-#include "../../plots/weeds/weed_classic.hpp"
+#include "../../random/test_random.hpp"
 
+test_random TestRand;
+bool hard = false;
 
 TEST_CASE( "it pretty prints a single plot of land" ) {
     Player p("P");
-    Farm farm(1, 1);
-    farm.link_Player(&p);
+    Farmland farm(1, 1, &p, &TestRand, &hard);
     FarmPrinter printer(&farm);
     std::stringstream expected;
   expected  << "/ / / \n"
@@ -32,20 +30,18 @@ TEST_CASE( "it pretty prints a single plot of land" ) {
 
 TEST_CASE( "it pretty prints a 1x2 farm" ) {
   Player player("P");
-  Farm farm(1, 2);
-    farm.link_Player(&player);
+  Farmland farm(1, 2, &player, &TestRand, &hard);
   FarmPrinter printer(&farm);
   std::stringstream expected;
   expected  << "/ / / \n"
-            << "/ P / \n"
             << "/ ~ / \n"
+            << "/ P / \n"
             << "/ / / \n";
   REQUIRE( printer.prettyPrint().str() == expected.str() );
 }
 TEST_CASE( "it pretty prints a 2x1 farm" ) {
   Player player("P");
-  Farm farm(2, 1);
-    farm.link_Player(&player);
+  Farmland farm(2, 1, &player, &TestRand, &hard);
   FarmPrinter printer(&farm);
   std::stringstream expected;
   expected  << "/ / / / \n"
@@ -55,22 +51,23 @@ TEST_CASE( "it pretty prints a 2x1 farm" ) {
 }
 TEST_CASE( "it pretty prints a 2x2 farm" ) {
     Player player("P");
-    Farm farm(2, 2);
-    farm.link_Player(&player);
+    Farmland farm(2, 2, &player, &TestRand, &hard);
     FarmPrinter printer(&farm);
     std::stringstream expected;
     expected  << "/ / / / \n"
-              << "/ P ~ / \n"
               << "/ ~ ~ / \n"
+              << "/ P ~ / \n"
               << "/ / / / \n";
     REQUIRE( printer.prettyPrint().str() == expected.str() );
 }
 TEST_CASE( "player moves" ) {
     Player player("P");
-    Farm farm(3, 3);
-    farm.link_Player(&player);
-    player.set_bounds(3, 3);
+    Farmland farm(3, 3, &player, &TestRand, &hard);
     FarmPrinter printer(&farm);
+    farm.move_player_up();
+    farm.move_player_up();
+    farm.move_player_left();
+    farm.move_player_left();
     std::stringstream expected;
     expected  << "/ / / / / \n"
               << "/ P ~ ~ / \n"
@@ -134,9 +131,11 @@ TEST_CASE( "player moves" ) {
 TEST_CASE( "player plants a carrot" ) {
     Player player("P");
     inventory inventory;
-    Farm farm(3, 3);
-    farm.link_Player(&player);
-    player.set_bounds(3, 3);
+    Farmland farm(3, 3, &player, &TestRand, &hard);
+    farm.move_player_up();
+    farm.move_player_up();
+    farm.move_player_left();
+    farm.move_player_left();
     FarmPrinter printer(&farm);
     Carrot carrot;
     seeds seed_carrot(&carrot);
@@ -165,15 +164,18 @@ TEST_CASE( "player plants a carrot" ) {
 TEST_CASE( "player grows a carrot" ) {
     Player player("P");
     inventory inventory;
-    Farm farm(3, 3);
-    farm.link_Player(&player);
-    player.set_bounds(3, 3);
+    Farmland farm(3, 3, &player, &TestRand, &hard);
     FarmPrinter printer(&farm);
     Carrot carrot;
     seeds seed_carrot(&carrot);
     produce produce_carrot(&carrot);
     carrot.link_this_class(&seed_carrot, &produce_carrot);
     inventory.add_item(&seed_carrot);
+    farm.move_player_up();
+    farm.move_player_up();
+    farm.move_player_up();
+    farm.move_player_left();
+    REQUIRE( farm.get_symbol(0, 0) == player.getAvatar());
     farm.plant(player.getX(), player.getY(), &carrot);
     player.move_right();
     player.move_down();
@@ -212,11 +214,8 @@ TEST_CASE( "game printer produces the legend." ) {
     seeds carrot_seeds(&carrot);
     carrot.link_this_class(&carrot_seeds, &carrot_produce);
     inventory_test.add_item(&carrot_seeds);
-    Player p;
-    p.set_bounds(5, 5);
-    p.better_start_position();
-    Farm farm(5, 5);
-    farm.link_Player(&p);
+    Player player;
+    Farmland farm(5, 5, &player, &TestRand, &hard);
     FarmPrinter printer_farm(&farm);
     GamePrinter printer(&printer_farm, &inventory_test);
     std::stringstream expected;
@@ -251,11 +250,8 @@ TEST_CASE( "game printer produces the inventory." ) {
     melon.link_this_class(&melon_seeds, &melon_produce);
     inventory_test.add_item_X_times(&melon_seeds, 22);
     inventory_test.add_item_X_times(&melon_produce, 30);
-    Player p;
-    p.set_bounds(5, 5);
-    p.better_start_position();
-    Farm farm(5, 5);
-    farm.link_Player(&p);
+    Player player;
+    Farmland farm(5, 5, &player, &TestRand, &hard);
     FarmPrinter printer_farm(&farm);
     GamePrinter printer(&printer_farm, &inventory_test);
     std::stringstream expected;

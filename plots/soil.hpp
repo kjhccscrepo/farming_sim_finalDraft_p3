@@ -1,5 +1,5 @@
-#ifndef FARMING_SIMULATOR_V2C_SOIL_HPP
-#define FARMING_SIMULATOR_V2C_SOIL_HPP
+#ifndef SOIL_HPP
+#define SOIL_HPP
 
 #include <string>
 #include "plot.hpp"
@@ -27,6 +27,4 @@ public:
 
     int produceDrops() override;
 };
-
-
-#endif //FARMING_SIMULATOR_V2C_SOIL_HPP
+#endif

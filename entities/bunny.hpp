@@ -2,24 +2,28 @@
 // Created by kistj on 12/3/2025.
 //
 
-#ifndef FARMING_SIM_BUNNY_HPP
-#define FARMING_SIM_BUNNY_HPP
+#ifndef BUNNY_HPP
+#define BUNNY_HPP
 #include "entity.hpp"
-
-
-class bunny : public entity {
+class bunny final : public entity {
     int bunny_x;
     int bunny_y;
     int bunny_bound_x;
     int bunny_bound_y;
     std::string bunny_avatar;
+    int age = 0;
 public:
+    explicit bunny(int xB, int yB, int xCord, int yCord);
 
-    explicit bunny(int bounds_arr[2], const int cords[2]);
+    void tick();
 
-    int getX() const override;
+    [[nodiscard]] int getAge() const;
 
-    int getY() const override;
+    [[nodiscard]] bool is_out_of_bounds() const;
+
+    [[nodiscard]] int getX() const override;
+
+    [[nodiscard]] int getY() const override;
 
     void move_up() override;
 
@@ -35,5 +39,4 @@ public:
 
 };
 
-
-#endif //FARMING_SIM_BUNNY_HPP
+#endif

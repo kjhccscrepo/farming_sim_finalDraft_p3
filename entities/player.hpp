@@ -2,12 +2,12 @@
 // Created by kistj on 11/18/2025.
 //
 
-#ifndef FARMING_SIMULATOR_V2C_PLAYER_HPP
-#define FARMING_SIMULATOR_V2C_PLAYER_HPP
+#ifndef PLAYER_HPP
+#define PLAYER_HPP
 #include "entity.hpp"
 #include <string>
 
-class Player : public entity {
+class Player final : public entity {
 private:
     int current_x;
     int current_y;
@@ -20,9 +20,9 @@ public:
 
     Player();
 
-    int getX() const override;
+    [[nodiscard]] int getX() const override;
 
-    int getY() const override;
+    [[nodiscard]] int getY() const override;
 
     void move_up() override;
 
@@ -36,11 +36,9 @@ public:
 
     std::string getAvatar() override;
 
-    void setUpCheck() const;
-
     void better_start_position();
 
     void change_avatar(const std::string &n);
 };
 
-#endif //FARMING_SIMULATOR_V2C_PLAYER_HPP
+#endif

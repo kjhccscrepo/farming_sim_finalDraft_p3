@@ -1,9 +1,7 @@
 //
 // Created by kistj on 11/18/2025.
 //
-
 #include "soil.hpp"
-
 Soil::~Soil() = default;
 
 std::string Soil::symbol() {
@@ -16,9 +14,7 @@ std::string Soil::myName() {
 
 void Soil::end_day() {
     // no-op
-
 }
-
 int Soil::harvest() {
     return -1;
 }

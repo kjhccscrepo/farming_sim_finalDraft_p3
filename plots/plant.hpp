@@ -1,5 +1,5 @@
-#ifndef FARMING_SIMULATOR_V2C_PLANT_HPP
-#define FARMING_SIMULATOR_V2C_PLANT_HPP
+#ifndef PLANT_HPP
+#define PLANT_HPP
 #include <vector>
 #include <string>
 #include "plot.hpp"
@@ -29,7 +29,7 @@ public:
 
     ~plant() override;
 
-    [[nodiscard]] bool isGrown() const;
+    bool isGrown() const;
 
     std::string symbol() override;
 
@@ -73,10 +73,10 @@ public:
 
     void water() override;
 
-    [[nodiscard]] int getCost() const;
+    int getCost() const;
 
     item *seedPointer() override;
 
     item *producePointer() override;
 };
-#endif //FARMING_SIMULATOR_V2C_PLANT_HPP
+#endif

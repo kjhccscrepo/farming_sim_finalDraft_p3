@@ -3,9 +3,10 @@
 //
 
 #include "real_random.hpp"
+#include <ctime>
 
 real_random::real_random() {
-    srand(time_t(nullptr));
+    srand(time(nullptr));
 }
 
 int real_random::get_random_number() {
@@ -13,5 +14,7 @@ int real_random::get_random_number() {
 }
 
 int real_random::get_random_number_in_range(const int &minimum, const int &maximum) {
-    return minimum + rand() % (maximum - minimum);
+    int inclusive_range = maximum - minimum + 1;
+
+    return (rand() % inclusive_range) + minimum;
 }

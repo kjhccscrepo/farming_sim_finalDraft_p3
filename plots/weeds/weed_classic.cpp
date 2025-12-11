@@ -5,7 +5,7 @@
 #include "weed_classic.hpp"
 #include "../plot.hpp"
 
-weed_classic::weed_classic() {}
+weed_classic::weed_classic() = default;
 
 std::string weed_classic::symbol() {
     return sym;

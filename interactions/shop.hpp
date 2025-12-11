@@ -13,7 +13,7 @@ class Shop {
     int has(seeds *seed_ptr);
 
     int waterCanUpgradePrices[5] = {50, 120, 300, 760, 2146};
-    bool broughtWUPS[5] = {false};
+    bool brought_WaterCanUpgrades[5] = {false};
 
     [[nodiscard]] int waterCan() const;
 

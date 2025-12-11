@@ -5,15 +5,15 @@
 #ifndef FARMING_SIMULATOR_V2C_FARM_PRINTER_HPP
 #define FARMING_SIMULATOR_V2C_FARM_PRINTER_HPP
 #include <sstream>
-#include "farm.hpp"
+#include "farmland.hpp"
 
 
 class FarmPrinter {
 private:
-    Farm *farm_to_print;
+    Farmland *farm_to_print;
 
 public:
-    explicit FarmPrinter(Farm *farm_ptr);
+    explicit FarmPrinter(Farmland *farm_ptr);
 
     [[nodiscard]] std::stringstream prettyPrint() const;
 

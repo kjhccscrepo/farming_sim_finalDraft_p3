@@ -2,8 +2,8 @@
 // Created by kistj on 11/18/2025.
 //
 
-#ifndef FARMING_SIMULATOR_V2C_WEED_CLASSIC_HPP
-#define FARMING_SIMULATOR_V2C_WEED_CLASSIC_HPP
+#ifndef WEED_CLASSIC_HPP
+#define WEED_CLASSIC_HPP
 #include <random>
 #include <string>
 #include "../plot.hpp"
@@ -37,4 +37,4 @@ public:
     int produceDrops() override;
 };
 
-#endif //FARMING_SIMULATOR_V2C_WEED_CLASSIC_HPP
+#endif

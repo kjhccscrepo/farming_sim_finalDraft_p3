@@ -4,9 +4,6 @@
 #include <catch2/benchmark/catch_constructor.hpp>
 #include <catch2/generators/catch_generators_range.hpp>
 #include "../../interactions/inventory.hpp"
-#include "../../interactions/item.hpp"
-#include "../../interactions/items/produce.hpp"
-#include "../../interactions/items/seeds.hpp"
 #include <string>
 inventory test_inventory;
 Shop test_shop;
@@ -19,7 +16,7 @@ TEST_CASE(" A Shop's welcome message works") {
 }
 
 TEST_CASE(" A Shop's menu options works") {
-    expected = "\n1) Buy new Seeds\n2) Sell Produce/Seeds\n3) Return to Farm";
+    expected = "\n1) Buy new Things\n2) Sell Produce/Seeds\n3) Return to Farm";
     REQUIRE( expected == test_shop.menu_options());
 }
 
